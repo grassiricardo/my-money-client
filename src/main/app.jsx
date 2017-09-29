@@ -7,7 +7,7 @@ import Footer from '../common/template/footer'
 import Routes from './routes'
 
 export default props => (
-    <div>
+    <div className='wrapper'>
         <Header />
         <SideBar />
         <div className='content-wrapper'>
