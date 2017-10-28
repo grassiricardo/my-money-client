@@ -1,12 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
+import { getSummary } from './dashboardActions'
 import ContentHeader from '../common/template/contentHeader'
 import Content from '../common/template/content'
 import ValueBox from '../common/widget/valueBox'
 import Row from '../common/layout/row'
 
 class Dashboard extends Component {
+
+    componentWillMount() {
+        this.props.getSummary
+    }
+
     render() {
         const { credit, debt } = this.props.sumary
         return (
@@ -27,5 +34,9 @@ class Dashboard extends Component {
     }
 }
 
+//Mapeamento que irá sempre me retornar o estado atual do meu dashboard atraves do seu reducer
 const mapStateToProps = state => ({sumary: state.dashboard.summary})
-export default connect(mapStateToProps)(Dashboard)
+//Mapeamento que irá sempre que eu usar as actions do meu dashboard, dispachar todas as alteracoes de estado para todas as actions que estiverem
+//interessadas a esta acao, evoluindo assim o estado do meu dasboard
+const mapDispatchToProps = dispatch => bindActionCreators({getSummary}, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
